@@ -29,8 +29,15 @@ class WebViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_web_view)
 
         val url: String = intent.getStringExtra("url").toString()  // 화면 전환으로 불러온 값
+        Log.d("TAG_WebView", "Initial Url is $url")
         webView = findViewById(R.id.webView)
         val webSettings: WebSettings = webView.settings
+
+        urlTitle = findViewById(R.id.webViewURLTv)
+        urlTitle.apply {
+            setTextIsSelectable(true)   // 드래그로 선택 가능
+            text = url
+        }
 
         val webViewClient: WebViewClient = object : WebViewClient() {
 
@@ -39,12 +46,12 @@ class WebViewActivity : AppCompatActivity() {
                 request: WebResourceRequest?
             ): Boolean {
                 Log.d("TAG_WebView", "shouldOverrideUrlLoading")
-                return true
+                return super.shouldOverrideUrlLoading(view, request)
             }
 
             override fun doUpdateVisitedHistory(view: WebView?, url: String?, isReload: Boolean) {
                 super.doUpdateVisitedHistory(view, url, isReload)
-                Log.d("TAG_WebView","doUpdateVisitedHistory")
+                Log.d("TAG_WebView", "doUpdateVisitedHistory")
             }
 
             override fun onReceivedError(
@@ -54,7 +61,7 @@ class WebViewActivity : AppCompatActivity() {
             ) {
                 super.onReceivedError(view, request, error)
                 // 페이지를 불러오는 도중 에러가 발생하면 기록삭제 후 빈 화면 로드
-                Log.d("TAG_WebView","onReceivedError")
+                Log.e("TAG_WebView", "onReceivedError")
                 view?.loadUrl("about:blank")
                 view?.clearHistory()
             }
@@ -62,28 +69,22 @@ class WebViewActivity : AppCompatActivity() {
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
                 urlTitle.text = url
-                Log.d("TAG_WebView","onPageStarted")
+                Log.d("TAG_WebView", "onPageStarted")
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-                Log.d("TAG_WebView","onPageFinished")
+                Log.d("TAG_WebView", "onPageFinished")
             }
         }
+
+        webView.webViewClient = webViewClient
 
         webSettings.javaScriptEnabled = true // 자바스크립트 허용
 
         webSettings.loadWithOverviewMode = true // 컨텐츠가 웹뷰보다 클 경우 스크린 크기에 맞게 조정
 
-        webView.webViewClient = webViewClient
-
         webView.loadUrl(url)
-
-        urlTitle = findViewById(R.id.webViewURLTv)
-        urlTitle.apply {
-            setTextIsSelectable(true)   // 드래그로 선택 가능
-            text = url
-        }
 
         val back: ImageView = findViewById(R.id.webViewBackIv)
         back.setOnClickListener() {
