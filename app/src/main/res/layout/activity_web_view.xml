@@ -6,9 +6,94 @@
     android:layout_height="match_parent"
     tools:context=".WebViewActivity">
 
+    <RelativeLayout
+        android:id="@+id/webViewTr"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/webViewBackIv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:padding="3dp"
+            android:src="@drawable/back"
+            app:tint="@color/black" />
+
+        <ImageView
+            android:id="@+id/webViewForwardIv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/webViewBackIv"
+            android:background="?attr/selectableItemBackground"
+            android:padding="3dp"
+            android:src="@drawable/forward"
+            app:tint="@color/black" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/webViewRefreshIv"
+            android:layout_toEndOf="@+id/webViewForwardIv"
+            android:gravity="center_vertical"
+            android:overScrollMode="never"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:scrollbars="none">
+
+            <TextView
+                android:id="@+id/webViewURLTv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="start|center_vertical"
+                android:text="URL String"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </HorizontalScrollView>
+
+        <ImageView
+            android:id="@+id/webViewRefreshIv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/refresh"
+            app:tint="@color/black" />
+
+    </RelativeLayout>
+
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/webViewTr" />
+
+    <ImageView
+        android:id="@+id/webViewUpIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/arrow_up"
+        android:background="@drawable/arrow_bg"
+        app:tint="@color/white"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

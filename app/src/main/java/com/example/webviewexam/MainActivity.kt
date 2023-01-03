@@ -1,10 +1,10 @@
 package com.example.webviewexam
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         val editText: EditText = findViewById(R.id.enterEt)
         val btn: Button = findViewById(R.id.enterBtn)
         val intent = Intent(this, WebViewActivity::class.java)
+
         btn.setOnClickListener{
             intent.putExtra("url",editText.text.toString())
             startActivity(intent)
